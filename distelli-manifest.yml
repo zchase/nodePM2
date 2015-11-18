@@ -77,16 +77,16 @@ zchase/node-pm2:
     #- echo "Installing PM2"
     #- sudo npm install -g pm2
     #- echo "Done Installing PM2"
-    - sudo ln -s "$(which pm2)" /usr/bin/node
+    - sudo ln -s "$(which pm2)" /usr/bin/pm2
     - echo "Starting application"
-    - /usr/local/bin/pm2 start app.js
+    - pm2 start app.js
 
   # RS: I've added a PostStart section that you can use to query pm2
   # to see what's running and what PM2 started in the Start section
   PostStart:
     # RS: Feel free to use any other pm2 command here to get details
     # about your app under pm2
-    - /usr/local/bin/pm2 list
+    - pm2 list
 
   # RS: I've added a terminate section to tell distelli to run these
   # commands when you do a terminate deployment. A Terminate
@@ -94,11 +94,11 @@ zchase/node-pm2:
   # commands will be run during the terminate deployment
   Terminate:
     - echo "Terminating application"
-    - /usr/local/bin/pm2 stop process-production.json
+    - pm2 stop process-production.json
 
   # RS: I've added a Restart section to tell distelli to run these
   # commands when you do a restart deployment. A Restart deployment is
   # used when you want to just restart a running app
   Restart:
     - echo "Restarting application"
-    - /usr/local/bin/pm2 gracefulReload process-production.json
+    - pm2 gracefulReload process-production.json
