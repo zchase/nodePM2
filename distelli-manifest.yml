@@ -78,8 +78,7 @@ zchase/node-pm2:
     #- sudo npm install -g pm2
     #- echo "Done Installing PM2"
     - echo "Starting application"
-    - cd /distelli/envs/node-pm2-prod
-    - pm2 start app.js
+    - sudo pm2 start app.js
 
   # RS: I've added a PostStart section that you can use to query pm2
   # to see what's running and what PM2 started in the Start section
