@@ -10,7 +10,7 @@ zchase/node-pm2:
   # installed and your tests run
   Build:
     - npm install
-    - npm test
+    #- npm test
 
   # RS: The PkgInclude section packages up all the files produced by
   # the build step so that they can be unpackaged on the server during
