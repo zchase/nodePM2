@@ -40,6 +40,7 @@ zchase/node-pm2:
   PreInstall:
     - echo "Begin PreInstall"
     - sudo apt-get -y update
+    - sudo apt-get install npm -y
     - echo "Installing NVM"
     - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
     - set +e; source ~/.nvm/nvm.sh; set -e
