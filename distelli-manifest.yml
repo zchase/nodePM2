@@ -40,7 +40,7 @@ zchase/node-pm2:
   PreInstall:
     - echo "Begin PreInstall"
     - sudo apt-get -y update
-    - sudo apt-get install nodejs -y
+    - sudo apt-get install node -y
     - sudo apt-get install npm -y
     - echo "Installing NVM"
     - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
@@ -74,9 +74,9 @@ zchase/node-pm2:
   # process for you and manages it in the background. Exec can only be
   # used if the process starts in the Foreground.
   Start:
-    - echo "Installing PM2"
-    - sudo npm install pm2@latest -g
-    - echo "Done Installing PM2"
+    #- echo "Installing PM2"
+    #- sudo npm install pm2@latest -g
+    #- echo "Done Installing PM2"
     - echo "Starting application"
     - pm2 start app.js -i 4
 
