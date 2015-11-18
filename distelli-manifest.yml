@@ -74,12 +74,11 @@ zchase/node-pm2:
   # process for you and manages it in the background. Exec can only be
   # used if the process starts in the Foreground.
   Start:
-    #- echo "Installing PM2"
-    #- sudo npm install pm2@latest -g
-    #- echo "Done Installing PM2"
-    - pwd
+    - echo "Installing PM2"
+    - sudo npm install -g pm2
+    - echo "Done Installing PM2"
     - echo "Starting application"
-    - pm2 start app.js -i 4
+    - pm2 start app.js
 
   # RS: I've added a PostStart section that you can use to query pm2
   # to see what's running and what PM2 started in the Start section
