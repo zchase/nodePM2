@@ -79,7 +79,7 @@ zchase/node-pm2:
     #- echo "Done Installing PM2"
     - echo "Starting application"
     - sudo which pm2
-    - /usr/local/bin/pm2 start app.js
+    - /usr/local/bin/pm2 gracefulReload app.js
 
   # RS: I've added a PostStart section that you can use to query pm2
   # to see what's running and what PM2 started in the Start section
