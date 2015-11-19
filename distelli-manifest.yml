@@ -48,6 +48,9 @@ zchase/node-pm2:
     - echo "Installing NVM version"
     - nvm install v4.2.1
     - nvm use v4.2.1
+    - echo "Installing PM2"
+    - sudo npm install -g pm2
+    - echo "Done Installing PM2"
 
 
   # RS: I've renamed the Install section to PostInstall because the
@@ -74,12 +77,9 @@ zchase/node-pm2:
   # process for you and manages it in the background. Exec can only be
   # used if the process starts in the Foreground.
   Start:
-    #- echo "Installing PM2"
-    #- sudo npm install -g pm2
-    #- echo "Done Installing PM2"
     - echo "Starting application"
     - sudo which pm2
-    - /usr/local/bin/pm2 gracefulReload app.js
+    - /usr/local/bin/pm2 start app.js
 
   # RS: I've added a PostStart section that you can use to query pm2
   # to see what's running and what PM2 started in the Start section
