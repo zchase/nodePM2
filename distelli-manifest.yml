@@ -78,6 +78,8 @@ zchase/node-pm2:
     #- sudo npm install -g pm2
     #- echo "Done Installing PM2"
     - echo "Starting application"
+    - which pm2
+    - sudo which pm2
     - sudo pm2 gracefulReload app.js
 
   # RS: I've added a PostStart section that you can use to query pm2
