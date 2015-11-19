@@ -1,25 +1,25 @@
 zchase/node-pm2:
 
-PkgInclude:
-  - '*'
+  PkgInclude:
+    - '*'
 
-PkgExclude:
-  - node_modules/
+  PkgExclude:
+    - node_modules/
 
-PreRelease:
-  - npm install
+  PreRelease:
+    - npm install
 
-PreInstall:
-  - sudo apt-get update
-  - sudo apt-get install nodejs -y
-  - sudo apt-get install npm -y
-  - echo "Installing PM2"
-  - sudo npm install -g pm2
-  - echo "Done Installing PM2"
+  PreInstall:
+    - sudo apt-get update
+    - sudo apt-get install nodejs -y
+    - sudo apt-get install npm -y
+    - echo "Installing PM2"
+    - sudo npm install -g pm2
+    - echo "Done Installing PM2"
 
-PostInstall:
-  - npm install
+  PostInstall:
+    - npm install
 
-Start:
-  - echo "Starting application"
-  - /usr/local/bin/pm2 start app.js
+  Start:
+    - echo "Starting application"
+    - /usr/local/bin/pm2 start app.js
