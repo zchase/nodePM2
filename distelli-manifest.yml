@@ -1,104 +1,25 @@
 zchase/node-pm2:
 
-  # RS: The build step runs on the build server before
-  # PreRelease. I've named it Build just for better readability Note
-  # that in this build step you're calling npm install that is going
-  # to pull down and install all the npm dependencies and install them
-  # in the node_modules/ dir.
+PkgInclude:
+  - '*'
 
-  # I've also added the npm test so here so that the node modules are
-  # installed and your tests run
-  Build:
-    - npm install
-    #- npm test
+PkgExclude:
+  - node_modules/
 
-  # RS: The PkgInclude section packages up all the files produced by
-  # the build step so that they can be unpackaged on the server during
-  # deployment
-  PkgInclude:
-    - '*'
+PreRelease:
+  - npm install
 
-   # RS: I've commented out the PkgExclude step here becase you don't
-   # want the node_modules directory to be excluded. You want the
-   # node_modules directory packaged up so that all the node modules
-   # that were installed during the build step are unpackaged and
-   # available on the server during deployment
+PreInstall:
+  - sudo apt-get update
+  - sudo apt-get install nodejs -y
+  - sudo apt-get install npm -y
+  - echo "Installing PM2"
+  - sudo npm install -g pm2
+  - echo "Done Installing PM2"
 
-#  PkgExclude:
-#    - node_modules/
+PostInstall:
+  - npm install
 
-   # RS: I've commented out the Build step here because I combined the
-   # PreRelease & Build into a single step - Build - at the top of the
-   # file
-
-#  Build:
-#    - echo "Begin Build"
-#    #- npm install
-#    #- npm test
-
-  # RS: I've left the PreInstall section unchanged
-  PreInstall:
-    - echo "Begin PreInstall"
-    - sudo apt-get -y update
-    - sudo apt-get install node -y
-    - sudo apt-get install npm -y
-    - echo "Installing NVM"
-    - wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-    - set +e; source ~/.nvm/nvm.sh; set -e
-    - echo "Installing NVM version"
-    - nvm install v4.2.1
-    - nvm use v4.2.1
-    - echo "Installing PM2"
-    - sudo npm install -g pm2
-    - echo "Done Installing PM2"
-
-
-  # RS: I've renamed the Install section to PostInstall because the
-  # Install section is reserved for unpackaging the files packaged up
-  # by the PkgInclude section. If you have a PkgInclude section in
-  # your manifest you cannot have an Install as well.
-
-  # RS: The PostInstall is run after the Install section is run and
-  # all the files are unpackaged on your server
-  PostInstall:
-    - echo "Begin PostInstall"
-    - set +e; source ~/.nvm/nvm.sh; set -e
-    # RS: You don't need an npm install here because we've packaged up
-    # the node_modules/ dir which came from the npm install in the
-    # build step.
-    #
-    # Alternatively if you want to run npm install during the
-    # deployment then add the PkgExclude section back in and run npm
-    # install here
-    # - npm install
-    # - echo "Done NPM install"
-
-  # RS: I've renamed the Exec section to start because pm2 starts your
-  # process for you and manages it in the background. Exec can only be
-  # used if the process starts in the Foreground.
-  Start:
-    - echo "Starting application"
-    - sudo which pm2
-    - /usr/local/bin/pm2 start app.js
-
-  # RS: I've added a PostStart section that you can use to query pm2
-  # to see what's running and what PM2 started in the Start section
-  PostStart:
-    # RS: Feel free to use any other pm2 command here to get details
-    # about your app under pm2
-    #- sudo pm2 list
-
-  # RS: I've added a terminate section to tell distelli to run these
-  # commands when you do a terminate deployment. A Terminate
-  # deployment is used to shutdown the app on the server and these
-  # commands will be run during the terminate deployment
-  Terminate:
-    #- echo "Terminating application"
-    #- sudo pm2 stop process-production.json
-
-  # RS: I've added a Restart section to tell distelli to run these
-  # commands when you do a restart deployment. A Restart deployment is
-  # used when you want to just restart a running app
-  Restart:
-    #- echo "Restarting application"
-    #- sudo pm2 gracefulReload process-production.json
+Start:
+  - echo "Starting application"
+  - /usr/local/bin/pm2 start app.js
