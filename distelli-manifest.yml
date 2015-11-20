@@ -16,6 +16,7 @@ zchase/node-pm2:
     - echo "Installing PM2"
     - sudo npm install -g pm2
     - echo "Done Installing PM2"
+    - sudo ln -sf "$(which nodejs)" /usr/bin/node ||true
 
   PostInstall:
     - npm install
