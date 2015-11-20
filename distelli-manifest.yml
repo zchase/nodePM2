@@ -22,4 +22,4 @@ zchase/node-pm2:
 
   Start:
     - echo "Starting application"
-    - /usr/local/bin/pm2 start app.js
+    - /usr/bin/pm2 start app.js
