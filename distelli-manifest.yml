@@ -12,7 +12,6 @@ zchase/node-pm2:
   PreInstall:
     - sudo apt-get update
     - sudo apt-get install nodejs -y
-    - sudo apt-get install npm -y
     - echo "Installing PM2"
     - sudo npm install -g pm2
     - echo "Done Installing PM2"
